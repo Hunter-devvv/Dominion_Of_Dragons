@@ -46,12 +46,14 @@ public class CAMERA : MonoBehaviour
         {
             mousescroll = Input.mousePosition - oldmousepos;
 
-            if (camrotation.rotation.eulerAngles.x > 75 && (mousescroll.y * -0.3f) > 0 && camrotation.rotation.eulerAngles.x < 50)
-            {
+            if (camrotation.rotation.eulerAngles.x > 70 && (mousescroll.y*  (-0.3f)  ) > 0 && camrotation.rotation.eulerAngles.x < 100)
+             {
+                print("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
                 mousescroll.y = 0;
             }
             if (camrotation.rotation.eulerAngles.x < 285 && (mousescroll.y * -0.3f) < 0 && camrotation.rotation.eulerAngles.x > 100)
             {
+                print("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
 
                 mousescroll.y = 0;
             }
