@@ -7,13 +7,14 @@ using UnityEngine.UIElements;
 public class CAMERA : MonoBehaviour
 {
 
-
+    public Movement mmovement;
     public bool cam_colllide = false;
     public bool Previus_cam_collide = false;
 
     public float desiredCampos;
 
     public Camera cam;
+
     public Transform camrotation;
     public Vector3 mousescroll;
     public float mousescroll2;
@@ -28,7 +29,7 @@ public class CAMERA : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+     
         oldmousepos = Input.mousePosition;
         mousescroll = new Vector3(0, 0, 0);
         desiredCampos = cam.transform.localPosition.z;
@@ -38,7 +39,7 @@ public class CAMERA : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+      
         mousescroll2 = Input.GetAxis("Mouse ScrollWheel");
         thingy = camrotation.rotation.eulerAngles.x;
 
@@ -69,7 +70,7 @@ public class CAMERA : MonoBehaviour
 
 
 
-            camrotation.rotation = Quaternion.Euler(camrotation.rotation.eulerAngles.x + (mousescroll.y * -0.3f), camrotation.rotation.eulerAngles.y + (mousescroll.x * 0.3f), camrotation.rotation.eulerAngles.z);
+            camrotation.rotation = Quaternion.Euler(camrotation.rotation.eulerAngles.x + (mousescroll.y * -0.3f), camrotation.rotation.eulerAngles.y + (mousescroll.x * 0.3f), 0);
         }
         if (mousescroll2 < 0)
         {
