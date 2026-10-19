@@ -5,12 +5,18 @@ public class Movement : MonoBehaviour
     public Rigidbody player;
     public ConstantForce Force;
     public Transform point;
+
+    public float momentum;
+
+    
     
     public char mode = 'w';
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mode = 'w';
+        momentum = 0;
+        
     }
 
     // Update is called once per frame
@@ -67,9 +73,39 @@ public class Movement : MonoBehaviour
                 Force.enabled = false;
                 break;
             case 'g':
-                player.useGravity = false;
-                
-                player.linearVelocity = new Vector3 ((player.position.x-Camera.main.transform.position.x), -0.5f, (player.position.z - Camera.main.transform.position.z)).normalized*5;
+
+                float angle_down = (player.position.y - Camera.main.transform.position.y);
+
+
+                if ( Mathf.Abs(player.position.y - Camera.main.transform.position.y)>(Mathf.Abs(player.position.z - Camera.main.transform.position.z)) + Mathf.Abs(player.position.x- Camera.main.transform.position.x) ) 
+                {
+                    player.useGravity = true;
+
+                    print("a");
+                    momentum = player.linearVelocity.y;
+                    player.linearVelocity = new Vector3( ((player.position.x - Camera.main.transform.position.x)) , player.linearVelocity.y , (player.position.z - Camera.main.transform.position.z)).normalized * Mathf.Clamp((10+((player.linearVelocity.y)*0.7f)),2.2f,1000f);
+
+                }
+                else
+                {
+                    print("b");
+
+                    player.useGravity = false;
+                    if (momentum < player.linearVelocity.y)
+                    {
+                        if (momentum > 0)
+                        {
+                            momentum = 0;
+                        }
+                        else
+                        {
+                            momentum = momentum+((0.8f*(1+(momentum/5)))*Time.deltaTime) ;
+                            
+                        }
+                    }
+                    player.linearVelocity = new Vector3((player.position.x - Camera.main.transform.position.x), -0.4f, (player.position.z - Camera.main.transform.position.z)).normalized * (8-(momentum*2));
+                }
+
                 break;
 
         }
