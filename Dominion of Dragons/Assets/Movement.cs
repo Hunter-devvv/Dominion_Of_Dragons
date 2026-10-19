@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -6,17 +7,19 @@ public class Movement : MonoBehaviour
     public ConstantForce Force;
     public Transform point;
 
-    public float momentum;
+    public float momentumDown;
+    public float momentumforward;
 
-    
+    public float TOTALMOMENTUM;
     
     public char mode = 'w';
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mode = 'w';
-        momentum = 0;
-        
+        momentumDown = 0.5f;
+        momentumforward = 0.5f;
+        TOTALMOMENTUM = 5;
     }
 
     // Update is called once per frame
@@ -74,37 +77,37 @@ public class Movement : MonoBehaviour
                 break;
             case 'g':
 
-                float angle_down = (player.position.y - Camera.main.transform.position.y);
+                player.useGravity = false;
+                Vector2 velocetyXZY = new Vector3((player.position.x - Camera.main.transform.position.x), (player.position.y - Camera.main.transform.position.y), (player.position.z - Camera.main.transform.position.z)).normalized*8;
 
 
-                if ( Mathf.Abs(player.position.y - Camera.main.transform.position.y)>(Mathf.Abs(player.position.z - Camera.main.transform.position.z)) + Mathf.Abs(player.position.x- Camera.main.transform.position.x) ) 
+                if (point.rotation.x > 0)
                 {
-                    player.useGravity = true;
 
-                    print("a");
-                    momentum = player.linearVelocity.y;
-                    player.linearVelocity = new Vector3( ((player.position.x - Camera.main.transform.position.x)) , player.linearVelocity.y , (player.position.z - Camera.main.transform.position.z)).normalized * Mathf.Clamp((10+((player.linearVelocity.y)*0.7f)),2.2f,1000f);
+
+                    float presentageUP = ( Mathf.Clamp(  ((point.rotation.x)-10),0, 90 ) / 90);
+
+                    TOTALMOMENTUM = Mathf.Clamp(TOTALMOMENTUM + (0.1f * presentageUP), 0.1f, 10);
+
+                    momentumDown = TOTALMOMENTUM * presentageUP;
+                    momentumforward = TOTALMOMENTUM*(1 - presentageUP);
+
+
 
                 }
                 else
                 {
-                    print("b");
+                    float presentageUP = (point.rotation.x  / 90 );
 
-                    player.useGravity = false;
-                    if (momentum < player.linearVelocity.y)
-                    {
-                        if (momentum > 0)
-                        {
-                            momentum = 0;
-                        }
-                        else
-                        {
-                            momentum = momentum+((0.8f*(1+(momentum/5)))*Time.deltaTime) ;
-                            
-                        }
-                    }
-                    player.linearVelocity = new Vector3((player.position.x - Camera.main.transform.position.x), -0.4f, (player.position.z - Camera.main.transform.position.z)).normalized * (8-(momentum*2));
+                    TOTALMOMENTUM = Mathf.Clamp(TOTALMOMENTUM + (0.1f * presentageUP), 0.1f , 10);
+
+                    momentumDown = TOTALMOMENTUM * presentageUP;
+                    momentumforward = TOTALMOMENTUM * (1 - presentageUP);
+
+
                 }
+                 
+                
 
                 break;
 
