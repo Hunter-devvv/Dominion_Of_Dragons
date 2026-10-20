@@ -20,6 +20,8 @@ public class Movement : MonoBehaviour
         momentumDown = 0.5f;
         momentumforward = 0.5f;
         TOTALMOMENTUM = 5;
+
+
     }
 
     // Update is called once per frame
@@ -78,7 +80,7 @@ public class Movement : MonoBehaviour
             case 'g':
 
                 player.useGravity = false;
-                Vector2 velocetyXZY = new Vector3((player.position.x - Camera.main.transform.position.x), (player.position.y - Camera.main.transform.position.y), (player.position.z - Camera.main.transform.position.z)).normalized*8;
+                Vector3 velocetyXZY = new Vector3((player.position.x - Camera.main.transform.position.x), (player.position.y - Camera.main.transform.position.y), (player.position.z - Camera.main.transform.position.z)).normalized*8;
 
 
                 if (point.rotation.x > 0)
@@ -99,15 +101,15 @@ public class Movement : MonoBehaviour
                 {
                     float presentageUP = (point.rotation.x  / 90 );
 
-                    TOTALMOMENTUM = Mathf.Clamp(TOTALMOMENTUM + (0.1f * presentageUP), 0.1f , 10);
-
+                    TOTALMOMENTUM = Mathf.Clamp(TOTALMOMENTUM + (0.15f * presentageUP), 0.1f , 10);
+                    
                     momentumDown = TOTALMOMENTUM * presentageUP;
-                    momentumforward = TOTALMOMENTUM * (1 - presentageUP);
+                    momentumforward = math.abs(TOTALMOMENTUM * (1 - presentageUP));
 
 
                 }
-                 
-                
+
+                player.linearVelocity = new Vector3(velocetyXZY.x * momentumforward, velocetyXZY.y * momentumDown, velocetyXZY.z * momentumforward);
 
                 break;
 
