@@ -1,5 +1,6 @@
 using Unity.Mathematics;
 using UnityEngine;
+using System.Reflection;
 
 public class Movement : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player.rotation = new Quaternion(0, 0, 0, 0);
+        player.rotation = quaternion.Euler(0, 0, 0);
         if (Input.GetKeyDown(KeyCode.F))
         {
 
@@ -79,39 +80,92 @@ public class Movement : MonoBehaviour
                 break;
             case 'g':
 
-                player.useGravity = false;
                 Vector3 velocetyXZY = new Vector3((player.position.x - Camera.main.transform.position.x), (player.position.y - Camera.main.transform.position.y), (player.position.z - Camera.main.transform.position.z)).normalized*8;
 
 
-                if (point.rotation.x > 0)
+                if (point.rotation.eulerAngles.x > 9 && point.rotation.eulerAngles.x<90)
                 {
 
+                    player.useGravity = false;
 
-                    float presentageUP = ( Mathf.Clamp(  ((point.rotation.x)-10),0, 90 ) / 90);
+                    float presentageUP = ( Mathf.Clamp(  ((point.localRotation.eulerAngles.x)-10),0, 90 ) / 90);
 
-                    TOTALMOMENTUM = Mathf.Clamp(TOTALMOMENTUM + (0.1f * presentageUP), 0.1f, 10);
+                    var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+                    var type = assembly.GetType("UnityEditor.LogEntries");
+                    var method = type.GetMethod("Clear");
+                    method.Invoke(new object(), null);
+                    print("B");
+
+                    print(" step 1 " + (point.localRotation.eulerAngles.x));
+                    print(" step 2 " + ((point.localRotation.eulerAngles.x)-5));
+
+                    print(" step 3 " + Mathf.Clamp(((point.localRotation.eulerAngles.x) - 5), 0, 90));
+
+                    TOTALMOMENTUM = Mathf.Clamp(TOTALMOMENTUM + (0.02f * Mathf.Abs(presentageUP)), 0.1f, 100000);
 
                     momentumDown = TOTALMOMENTUM * presentageUP;
                     momentumforward = TOTALMOMENTUM*(1 - presentageUP);
 
+                    print("step 4 " + presentageUP);
+
+
+                    print(" Momentum change " + (0.1f * presentageUP));
 
 
                 }
                 else
                 {
-                    float presentageUP = (point.rotation.x  / 90 );
+                    float presentageUP = 0;
+                    if (point.localRotation.eulerAngles.x > 91)
+                    {
+                         presentageUP = (((point.localRotation.eulerAngles.x) - 190) / 90);
 
-                    TOTALMOMENTUM = Mathf.Clamp(TOTALMOMENTUM + (0.15f * presentageUP), 0.1f , 10);
-                    
+                    }
+                    else
+                    {
+                         presentageUP = (((point.localRotation.eulerAngles.x) - 10) / 90);
+
+                    }
+
+
+                    var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
+                    var type = assembly.GetType("UnityEditor.LogEntries");
+                    var method = type.GetMethod("Clear");
+                    method.Invoke(new object(), null);
+
+                    print("A");
+
+
+                    TOTALMOMENTUM = Mathf.Clamp(TOTALMOMENTUM - (0.02f * Mathf.Abs(presentageUP)), 0.1f, 10);
+
+                    if (TOTALMOMENTUM <=0.1f)
+                    {
+                        player.useGravity = true;
+                    }
+                    else
+                    {
+                        player.useGravity = false;
+
+                    }
                     momentumDown = TOTALMOMENTUM * presentageUP;
                     momentumforward = math.abs(TOTALMOMENTUM * (1 - presentageUP));
 
 
                 }
 
-                player.linearVelocity = new Vector3(velocetyXZY.x * momentumforward, velocetyXZY.y * momentumDown, velocetyXZY.z * momentumforward);
+                if (player.useGravity == false)
+                {
 
+                    player.linearVelocity = new Vector3(velocetyXZY.x * momentumforward, velocetyXZY.y * (momentumDown), velocetyXZY.z * momentumforward);
+                }
+                else
+                {
+
+                                        player.linearVelocity = new Vector3(velocetyXZY.x * (momentumforward), player.linearVelocity.y, velocetyXZY.z * momentumforward);
+
+                }
                 break;
+
 
         }
     }
