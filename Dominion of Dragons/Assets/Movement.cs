@@ -90,10 +90,6 @@ public class Movement : MonoBehaviour
 
                     float presentageUP = ( Mathf.Clamp(  ((point.localRotation.eulerAngles.x)-10),0, 90 ) / 90);
 
-                    var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
-                    var type = assembly.GetType("UnityEditor.LogEntries");
-                    var method = type.GetMethod("Clear");
-                    method.Invoke(new object(), null);
                     print("B");
 
                     print(" step 1 " + (point.localRotation.eulerAngles.x));
@@ -128,10 +124,6 @@ public class Movement : MonoBehaviour
                     }
 
 
-                    var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
-                    var type = assembly.GetType("UnityEditor.LogEntries");
-                    var method = type.GetMethod("Clear");
-                    method.Invoke(new object(), null);
 
                     print("A");
 

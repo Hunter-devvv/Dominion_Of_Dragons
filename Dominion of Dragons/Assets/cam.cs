@@ -49,12 +49,10 @@ public class CAMERA : MonoBehaviour
 
             if (camrotation.rotation.eulerAngles.x > 70 && (mousescroll.y*  (-0.3f)  ) > 0 && camrotation.rotation.eulerAngles.x < 100)
              {
-                print("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
                 mousescroll.y = 0;
             }
             if (camrotation.rotation.eulerAngles.x < 285 && (mousescroll.y * -0.3f) < 0 && camrotation.rotation.eulerAngles.x > 100)
             {
-                print("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
 
                 mousescroll.y = 0;
             }
