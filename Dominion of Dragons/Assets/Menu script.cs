@@ -1,16 +1,48 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Menuscript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject Ob_Settings;
+
+    public GameObject Ob_Credits;
+
+
     void Start()
     {
-        
+        Ob_Credits.SetActive(false);
+        Ob_Settings.SetActive(false);
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void Play()
     {
-        
+        SceneManager.LoadScene("game");
     }
+
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void CloseGUI()
+    {
+        Ob_Credits.SetActive(false);
+        Ob_Settings.SetActive(false);
+    }
+
+    public void Setting()
+    {
+        Ob_Credits.SetActive(false);
+        Ob_Settings.SetActive(true);
+    }
+
+    public void Credits()
+    {
+        Ob_Credits.SetActive(true);
+        Ob_Settings.SetActive(false);
+    }
+
 }
