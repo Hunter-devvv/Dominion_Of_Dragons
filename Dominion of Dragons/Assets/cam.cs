@@ -26,6 +26,10 @@ public class CAMERA : MonoBehaviour
     public Vector3 oldmousepos;
     public Vector2 scrollweel;
     public float thingy;
+
+    public Transform l_cam;
+
+    public Transform r_cam;
     // Start is called before the first frame update
     void Start()
     {
@@ -236,14 +240,17 @@ public class CAMERA : MonoBehaviour
         meshurer2.localScale = new Vector3(0.3f, 0.3f, desiredCampos);
         BoxCollider camlook_hitbox2 = meshurer2.gameObject.GetComponent<BoxCollider>();
 
+        Transform cp = cam.transform;
+        float CP_d = cam.transform.localPosition.z;
+        r_cam.localPosition = new Vector3(CP_d, 0, 0);
+
+        l_cam.localPosition = new Vector3(CP_d*-1, 0, 0);
 
 
 
 
-      
-        
 
     }
 
-   
+
 }
