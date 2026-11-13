@@ -3,6 +3,7 @@ using UnityEngine;
 public class rotate : MonoBehaviour
 {
     public Transform dragon;
+    public Transform DRAGON_local;
     public Animation Anim;
 
     public AnimationClip Flap;
@@ -16,9 +17,9 @@ public class rotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rotation+=Time.deltaTime*5;
+        rotation+=Time.deltaTime*35;
         dragon.rotation = Quaternion.Euler(0, rotation, 0);
-
+        DRAGON_local.localPosition = new Vector3(0, 0, 15);
         
     }
 }
