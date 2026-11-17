@@ -11,18 +11,25 @@ public class grass : MonoBehaviour
         bool closeeunguh = true;
         
 
-        float disx = Mathf.Abs(Camera.main.transform.position.x - gameObject.transform.position.x);
+        float disx =  Mathf.Abs(Camera.main.transform.position.x - gameObject.transform.position.x);
         float disy = Mathf.Abs(Camera.main.transform.position.y - gameObject.transform.position.y);
         float disz = Mathf.Abs(Camera.main.transform.position.z - gameObject.transform.position.z);
 
-         disXZ = Mathf.Sqrt(disx + disz);
-        if (disXZ > 15 || disy > 30)
+
+        disx = disx * disx;
+        disy = disy * disy;
+        disz = disz * disz;
+
+
+        disXZ = Mathf.Sqrt(disx + disz);
+
+        if (disXZ > 120 || disy > 300)
         {
             closeeunguh = false;
             png.enabled = false;
 
         }
-        else if (disXZ > 8 || disy > 16)
+        else if (disXZ > 50 || disy > 100)
         {
             closeeunguh = false;
             png.enabled = true;
