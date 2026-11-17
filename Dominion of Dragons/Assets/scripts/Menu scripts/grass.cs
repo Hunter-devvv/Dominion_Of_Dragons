@@ -16,17 +16,16 @@ public class grass : MonoBehaviour
         float disz = Mathf.Abs(Camera.main.transform.position.z - gameObject.transform.position.z);
 
          disXZ = Mathf.Sqrt(disx + disz);
-        if (disXZ > 100 || disy > 200)
+        if (disXZ > 15 || disy > 30)
         {
             closeeunguh = false;
             png.enabled = false;
 
         }
-        else if (disXZ > 40 || disy > 80)
+        else if (disXZ > 8 || disy > 16)
         {
             closeeunguh = false;
             png.enabled = true;
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
 
         }
