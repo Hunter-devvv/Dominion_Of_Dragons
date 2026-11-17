@@ -23,13 +23,13 @@ public class grass : MonoBehaviour
 
         disXZ = Mathf.Sqrt(disx + disz);
 
-        if (disXZ > 120 || disy > 300)
+        if (disXZ > 120 || disy > 600)
         {
             closeeunguh = false;
             png.enabled = false;
 
         }
-        else if (disXZ > 50 || disy > 100)
+        else if (disXZ > 50 || disy > 200)
         {
             closeeunguh = false;
             png.enabled = true;
