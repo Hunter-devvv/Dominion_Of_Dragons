@@ -3,6 +3,8 @@ using UnityEngine;
 public class grass : MonoBehaviour
 {
     public SpriteRenderer png;
+    public float disXZ = 0;
+
     // Update is called once per frame
     void Update()
     {
@@ -10,19 +12,21 @@ public class grass : MonoBehaviour
         
 
         float disx = Mathf.Abs(Camera.main.transform.position.x - gameObject.transform.position.x);
-        float disy = Mathf.Abs(Camera.main.transform.position.x - gameObject.transform.position.y);
-        float disz = Mathf.Abs(Camera.main.transform.position.x - gameObject.transform.position.z);
+        float disy = Mathf.Abs(Camera.main.transform.position.y - gameObject.transform.position.y);
+        float disz = Mathf.Abs(Camera.main.transform.position.z - gameObject.transform.position.z);
 
-        if (disx > 100 || disz > 100 || disy > 200)
+         disXZ = Mathf.Sqrt(disx + disz);
+        if (disXZ > 100 || disy > 200)
         {
             closeeunguh = false;
             png.enabled = false;
 
         }
-        else if (disx > 30 || disz > 30 || disy > 60)
+        else if (disXZ > 40 || disy > 80)
         {
             closeeunguh = false;
             png.enabled = true;
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
 
 
         }

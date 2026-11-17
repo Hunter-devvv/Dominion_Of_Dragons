@@ -1,5 +1,9 @@
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+
+
 
 public class Menuscript : MonoBehaviour
 {
@@ -8,6 +12,14 @@ public class Menuscript : MonoBehaviour
     public GameObject Ob_Credits;
 
 
+    public float mouse_x = 0;
+    public float mouse_y = 0;
+
+    public float h_hight = 0;
+    public float h_width = 0;
+
+    public Vector2 mouse_relitive = new Vector2(0, 0);
+
     void Start()
     {
         Ob_Credits.SetActive(false);
@@ -15,6 +27,7 @@ public class Menuscript : MonoBehaviour
 
     }
 
+  
 
     public void Play()
     {
