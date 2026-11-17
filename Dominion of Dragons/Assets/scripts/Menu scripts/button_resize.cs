@@ -40,7 +40,7 @@ public class button_resize : MonoBehaviour
             {
                 IS_hovering_over_play = true;
 
-                play_button_transform.localScale = new Vector3(1.06f, 1.06f, 1.06f);
+                play_button_transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
             }
             else
             {
