@@ -71,7 +71,7 @@ ModelImporter:
       name: DragonRIG.3.0|LandMainMenu (1)
       takeName: DragonRIG.3.0|LandMainMenu
       internalID: 11116965799718499
-      firstFrame: 121
+      firstFrame: 137
       lastFrame: 239
       wrapMode: 0
       orientationOffsetY: 0
@@ -80,7 +80,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 1
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -95,7 +95,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 121
+      additiveReferencePoseFrame: 140
     isReadable: 0
   meshes:
     lODScreenPercentages: []
