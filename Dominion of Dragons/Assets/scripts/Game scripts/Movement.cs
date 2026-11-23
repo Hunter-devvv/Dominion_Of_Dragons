@@ -16,25 +16,28 @@ public class Movement : MonoBehaviour
 
     public GameObject Model;
 
-    public Animator animator;
-    public Animation Anim;
+    public Transform dragon;
 
-    public AnimationClip Flap;
 
     public float stanima = 100;
     public float MAX_stanima = 100;
 
+    public float tilt = 0;
     public float flytime = 0;
 
     public bool fastfly = false;
+    public float fly_l_r_present = 0;
 
     public float boost = 0;
+
+    public Transform move_l;
+    public Transform move_r;
 
     public char mode = 'w';
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        tilt = 0;
         mode = 'w';
         momentumDown = 0.5f;
         momentumforward = 0.5f;
@@ -47,7 +50,11 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dragon.transform.localRotation = quaternion.Euler(point.localRotation.eulerAngles.x, point.localRotation.eulerAngles.y,tilt);
+
         Vector3 velocetyXZY = new Vector3((player.position.x - Camera.main.transform.position.x), (player.position.y - Camera.main.transform.position.y), (player.position.z - Camera.main.transform.position.z)).normalized * 7;
+        Vector3 velocetyLEFT = new Vector3((player.position.x - move_l.position.x), (player.position.y - move_l.position.y), (player.position.z - move_l.position.z)).normalized * 7;
+        Vector3 velocetyRIGHT = new Vector3((player.position.x - move_r.position.x), (player.position.y - move_r.position.y), (player.position.z - move_r.position.z)).normalized * 7;
 
         stanima = Mathf.Clamp(stanima, 0, MAX_stanima);
 
@@ -156,7 +163,7 @@ public class Movement : MonoBehaviour
                 {
                     if (forward < 0 )
                     {
-                      
+                      //fly backwards code
 
                         if (fastfly ==false)
                         {
@@ -275,9 +282,28 @@ public class Movement : MonoBehaviour
 
                         }
 
+
+
+                        if (side == 0)
+                        {
+                            
+                            fly_l_r_present = Mathf.Clamp(fly_l_r_present*0.9f, -1, 1);
+                            tilt = Mathf.Clamp((tilt*0.95f), -30, 30);
+
+                            if (Mathf.Abs(fly_l_r_present) < 0.1f)
+                            {
+                                fly_l_r_present = 0;
+                            }
+                            if (Mathf.Abs(tilt) < 0.1f)
+                            {
+                                tilt = 0;
+                            }
+
+                        }
+
                         if (forward == 1 && side == 0)
                         {
-                            //forward move code for fly mode going forward
+                            //fly forward code 
 
                             if (fastfly == false)
                             {
@@ -293,8 +319,51 @@ public class Movement : MonoBehaviour
 
 
                         }
+                        else if (forward == 1 && side != 0)
+                        {
+                            //fly forward right code
+                           
+                            if (side>0)
+                            {
+                                fly_l_r_present = Mathf.Clamp(fly_l_r_present + (Time.deltaTime * 0.5f), -0.5f, 0.5f);
+                                tilt = Mathf.Clamp((tilt + (Time.deltaTime*5)), -30, 30);
+                            }
+                            else
+                            {
+                                fly_l_r_present = Mathf.Clamp(fly_l_r_present - (Time.deltaTime * 0.5f), -0.5f, 0.5f);
+                                tilt = Mathf.Clamp((tilt + (Time.deltaTime * 5)), -30, 30);
+
+                            }
+
+
+                            if (fastfly == false)
+                            {
+
+                                player.linearVelocity = new Vector3(velocetyXZY.x * (0.7f + flytime), velocetyXZY.y * (0.7f + flytime), velocetyXZY.z * (0.7f + flytime));
+
+                            }
+                            else
+                            {
+                                if (fly_l_r_present > 0)
+                                {
+                                    player.linearVelocity = new Vector3((velocetyXZY.x * (0.7f + flytime + boost)) + (velocetyRIGHT.x * (Mathf.Abs(fly_l_r_present))), (velocetyXZY.y * (0.7f + flytime + boost)) + (velocetyRIGHT.y * (Mathf.Abs(fly_l_r_present))), (velocetyXZY.z * (0.7f + flytime + boost)) + (velocetyRIGHT.x * (Mathf.Abs(fly_l_r_present))));
+
+                                }
+                                else
+                                {
+                                    player.linearVelocity = new Vector3((velocetyXZY.x * (0.7f + flytime + boost)) + (velocetyLEFT.x * (Mathf.Abs(fly_l_r_present))), (velocetyLEFT.y * (0.7f + flytime + boost)) + (velocetyLEFT.y * (Mathf.Abs(fly_l_r_present))), (velocetyLEFT.z * (0.7f + flytime + boost)) + (velocetyLEFT.x * (Mathf.Abs(fly_l_r_present))));
+
+
+                                }
+                            }
+
+
+
+                        }
                         else if (side == 1 && forward == 0)
                         {
+                            //fly right code
+
                             if (fastfly == true)
                             {
                                 if (flytime < 2)
@@ -303,16 +372,73 @@ public class Movement : MonoBehaviour
                                 }
 
                                 //slows flytime 
+
                                 flytime = Mathf.Clamp(flytime - (Time.deltaTime * Mathf.Clamp((flytime / 4), 1f, 1000)), 0, MAX_stanima);
                                 player.linearVelocity /= (1 + (Time.deltaTime));
                             }
                             else
                             {
 
-                                Vector3 velocetyXZY_L = new Vector3((player.position.z - Camera.main.transform.position.z), (player.position.y - Camera.main.transform.position.y), (player.position.x - Camera.main.transform.position.x)).normalized * 7;
 
 
-                                player.linearVelocity = new Vector3(velocetyXZY_L.x * (0.7f + flytime), velocetyXZY_L.y * (0.7f + flytime), velocetyXZY_L.z * (0.7f + flytime));
+                                if (fly_l_r_present < -0.1f)
+                                {
+                                    fly_l_r_present = Mathf.Clamp(fly_l_r_present + (Time.deltaTime * 10), -1, 0);
+                                    player.linearVelocity = new Vector3(velocetyLEFT.x * (fly_l_r_present * (-1)), velocetyLEFT.y * (fly_l_r_present * (-1)), velocetyLEFT.z * (fly_l_r_present * (-1)));
+
+                                }
+                                else 
+                                {
+                                    fly_l_r_present = Mathf.Clamp(fly_l_r_present + (Time.deltaTime * 2), 0, 1);
+                                    player.linearVelocity = new Vector3(velocetyRIGHT.x * (fly_l_r_present), velocetyRIGHT.y * (fly_l_r_present), velocetyRIGHT.z * (fly_l_r_present));
+
+                                }
+
+
+                            }
+
+                        }
+                        else if (side == -1 && forward == 0)
+                        {
+                            //fly left code
+                            
+
+                            //sets the presentige the player moves left
+                          
+
+
+                            if (fastfly == true)
+                            {
+                                if (flytime < 2)
+                                {
+                                    fastfly = false;
+                                }
+
+                                //slows flytime 
+
+                                flytime = Mathf.Clamp(flytime - (Time.deltaTime * Mathf.Clamp((flytime / 4), 1f, 1000)), 0, MAX_stanima);
+                                player.linearVelocity /= (1 + (Time.deltaTime));
+                            }
+                            else
+                            {
+                                if (fly_l_r_present > 0.1f)
+                                {
+                                    fly_l_r_present = Mathf.Clamp(fly_l_r_present - (Time.deltaTime * 10), 0, 1);
+                                    player.linearVelocity = new Vector3(velocetyRIGHT.x * (fly_l_r_present), velocetyRIGHT.y * (fly_l_r_present), velocetyRIGHT.z * (fly_l_r_present));
+
+                                }
+                                else
+                                {
+                                    fly_l_r_present = Mathf.Clamp(fly_l_r_present - (Time.deltaTime * 2), -1, 0);
+                                    player.linearVelocity = new Vector3(velocetyLEFT.x * (fly_l_r_present*(-1)), velocetyLEFT.y * (fly_l_r_present * (-1)), velocetyLEFT.z * (fly_l_r_present * (-1)));
+
+                                }
+
+
+
+
+
+
 
 
 
