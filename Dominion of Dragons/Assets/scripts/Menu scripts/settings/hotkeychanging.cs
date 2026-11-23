@@ -16,7 +16,7 @@ public class hotkeychanging : MonoBehaviour
     {
         Waitting();
         Debug.Log("youcanpressnow");
-        hotkey[0] = ;
+        //hotkey[0] = ;
         Debug.Log("meow:" + hotkey[0]);
     }
     public void HotkeyChange2()
