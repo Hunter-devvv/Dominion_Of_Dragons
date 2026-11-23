@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 public class button_resize : MonoBehaviour
 {
     Vector2 mouse_relitive = new Vector2(0, 0);
+
+    int washovering = 0;
+    public AudioSource click;
     public bool IS_hovering_over_play=false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,14 +42,21 @@ public class button_resize : MonoBehaviour
             if (mouse_relitive.x < h_width && mouse_relitive.x > h_width * n && mouse_relitive.y < h_hight && mouse_relitive.y > h_hight * n)
             {
                 IS_hovering_over_play = true;
-
+            
                 play_button_transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+                if (washovering == 0)
+                {
+                    click.Play();
+                    washovering = 1;
+                  
+                }
             }
             else
             {
                 IS_hovering_over_play = false;
                 play_button_transform.localScale = new Vector3(1f, 1f, 1f);
 
+                washovering = 0;
             }
         }
 

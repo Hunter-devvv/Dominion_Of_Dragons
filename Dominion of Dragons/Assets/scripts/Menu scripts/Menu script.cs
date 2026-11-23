@@ -20,6 +20,8 @@ public class Menuscript : MonoBehaviour
 
     public Vector2 mouse_relitive = new Vector2(0, 0);
 
+    public AudioSource click;
+
     void Start()
     {
         Ob_Credits.SetActive(false);
@@ -31,7 +33,9 @@ public class Menuscript : MonoBehaviour
 
     public void Play()
     {
+
         SceneManager.LoadScene("game");
+
     }
 
 
@@ -44,12 +48,15 @@ public class Menuscript : MonoBehaviour
     {
         Ob_Credits.SetActive(false);
         Ob_Settings.SetActive(false);
+        
+
     }
 
     public void Setting()
     {
         Ob_Credits.SetActive(false);
         Ob_Settings.SetActive(true);
+
     }
 
     public void Credits()
