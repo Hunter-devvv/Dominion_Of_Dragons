@@ -1,7 +1,7 @@
-using JetBrains.Annotations;
+using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 
@@ -11,6 +11,8 @@ public class Menuscript : MonoBehaviour
 
     public GameObject Ob_Credits;
 
+    public TMP_Dropdown quality;
+    public Toggle full;
 
     public float mouse_x = 0;
     public float mouse_y = 0;
@@ -29,7 +31,25 @@ public class Menuscript : MonoBehaviour
 
     }
 
-  
+    public void Resolution_change()
+    {
+        QualitySettings.SetQualityLevel(quality.value);
+    }
+
+    public void fullscreen()
+    {
+
+        if (full.isOn==true)
+        {
+            Screen.fullScreen = true;
+        }
+        else
+        {
+            Screen.fullScreen = false;
+
+        }
+    }
+
 
     public void Play()
     {
