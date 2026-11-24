@@ -50,7 +50,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dragon.transform.localRotation = quaternion.Euler(point.localRotation.eulerAngles.x, point.localRotation.eulerAngles.y,tilt);
+        print(point.rotation.eulerAngles.x);
 
         Vector3 velocetyXZY = new Vector3((player.position.x - Camera.main.transform.position.x), (player.position.y - Camera.main.transform.position.y), (player.position.z - Camera.main.transform.position.z)).normalized * 7;
         Vector3 velocetyLEFT = new Vector3((player.position.x - move_l.position.x), (player.position.y - move_l.position.y), (player.position.z - move_l.position.z)).normalized * 7;
@@ -108,6 +108,9 @@ public class Movement : MonoBehaviour
                 stanima += Time.deltaTime * 5;
                 break;
             case 'f': //what to do on each frame while flying
+
+                //dragon rotation
+                dragon.rotation = Quaternion.Euler((point.rotation.eulerAngles.x)-5, point.rotation.eulerAngles.y, tilt);
 
 
                 player.useGravity = false;
@@ -288,7 +291,7 @@ public class Movement : MonoBehaviour
                         {
                             
                             fly_l_r_present = Mathf.Clamp(fly_l_r_present*0.9f, -1, 1);
-                            tilt = Mathf.Clamp((tilt*0.95f), -30, 30);
+                            tilt = Mathf.Clamp((tilt*0.95f), -60, 60);
 
                             if (Mathf.Abs(fly_l_r_present) < 0.1f)
                             {
@@ -323,15 +326,15 @@ public class Movement : MonoBehaviour
                         {
                             //fly forward right code
                            
-                            if (side>0)
+                            if (side==(-1))
                             {
-                                fly_l_r_present = Mathf.Clamp(fly_l_r_present + (Time.deltaTime * 0.5f), -0.5f, 0.5f);
-                                tilt = Mathf.Clamp((tilt + (Time.deltaTime*5)), -30, 30);
+                                fly_l_r_present = Mathf.Clamp(fly_l_r_present + (Time.deltaTime * 1f), -0.8f, 0.8f);
+                                tilt = Mathf.Clamp((tilt + (Time.deltaTime*20)), -60, 60);
                             }
                             else
                             {
-                                fly_l_r_present = Mathf.Clamp(fly_l_r_present - (Time.deltaTime * 0.5f), -0.5f, 0.5f);
-                                tilt = Mathf.Clamp((tilt + (Time.deltaTime * 5)), -30, 30);
+                                fly_l_r_present = Mathf.Clamp(fly_l_r_present - (Time.deltaTime * 1f), -0.5f, 0.8f);
+                                tilt = Mathf.Clamp((tilt - (Time.deltaTime * 20)), -60, 60);
 
                             }
 
@@ -346,7 +349,7 @@ public class Movement : MonoBehaviour
                             {
                                 if (fly_l_r_present > 0)
                                 {
-                                    player.linearVelocity = new Vector3((velocetyXZY.x * (0.7f + flytime + boost)) + (velocetyRIGHT.x * (Mathf.Abs(fly_l_r_present))), (velocetyXZY.y * (0.7f + flytime + boost)) + (velocetyRIGHT.y * (Mathf.Abs(fly_l_r_present))), (velocetyXZY.z * (0.7f + flytime + boost)) + (velocetyRIGHT.x * (Mathf.Abs(fly_l_r_present))));
+                                    player.linearVelocity = new Vector3( (velocetyXZY.x * (0.7f + flytime + boost)) + (velocetyRIGHT.x * (Mathf.Abs(fly_l_r_present))), (velocetyXZY.y * (0.7f + flytime + boost)) + (velocetyRIGHT.y * (Mathf.Abs(fly_l_r_present))), (velocetyXZY.z * (0.7f + flytime + boost)) + (velocetyRIGHT.x * (Mathf.Abs(fly_l_r_present))));
 
                                 }
                                 else
@@ -488,6 +491,7 @@ public class Movement : MonoBehaviour
 
                 break;
             case 'g':
+                dragon.rotation = Quaternion.Euler((point.rotation.eulerAngles.x)-5, point.rotation.eulerAngles.y, tilt);
 
 
 

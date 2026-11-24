@@ -33,7 +33,7 @@ public class Menuscript : MonoBehaviour
 
     public void Resolution_change()
     {
-        QualitySettings.SetQualityLevel(quality.value);
+        QualitySettings.SetQualityLevel(quality.value,true);
     }
 
     public void fullscreen()

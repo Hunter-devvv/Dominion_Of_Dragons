@@ -175876,7 +175876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::rotate
   dragon: {fileID: 1338057658}
   DRAGON_local: {fileID: 856126120}
-  Anim: {fileID: 856126123}
+  Anim: {fileID: 0}
   Camera_distance: 22
   Camera_Roation_offset: -12
   cam_roation: 0
@@ -175904,22 +175904,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!111 &856126123
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856126119}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 4636251054637642074, guid: 1cb70fbd4106a644989127186b833587, type: 3}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0
 --- !u!82 &856126124
 AudioSource:
   m_ObjectHideFlags: 0
@@ -336217,10 +336201,10 @@ MonoBehaviour:
     Main Artist/modeler:        Saige Enquist-Hinz
 
 
-    music/sound producer:    Braden Lofgren
+    music/sound producer:    Brayden Lofgren
 
 
-    Main map disighner:         Nathen Ferong
+    Main map designer:         Nathan Ferong
 
 '
   m_isRightToLeft: 0
@@ -371377,9 +371361,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1cb70fbd4106a644989127186b833587, type: 3}
       insertIndex: -1
       addedObject: {fileID: 856126122}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1cb70fbd4106a644989127186b833587, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 856126123}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1cb70fbd4106a644989127186b833587, type: 3}
       insertIndex: -1
       addedObject: {fileID: 856126124}
