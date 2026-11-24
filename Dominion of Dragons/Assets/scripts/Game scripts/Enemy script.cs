@@ -66,7 +66,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         {
             if (dammage_over_time.z <= 0)
             {
-                dammage_over_time.z = dammage_over_time.x;
+                dammage_over_time.z = dammage_over_time.y;
 
                 if (is_alive == true)
                 {

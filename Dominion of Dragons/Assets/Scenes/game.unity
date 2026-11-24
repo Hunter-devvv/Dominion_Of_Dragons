@@ -1542296,7 +1542296,7 @@ MonoBehaviour:
   is_alive: 1
   stunned: 0
   Frozen: 0
-  dammage_over_time: {x: 0, y: 0, z: 0}
+  dammage_over_time: {x: 10, y: 10, z: 10}
   Condishions:
   - none
   - none
